@@ -1,0 +1,9 @@
+.idea
+node_modules
+daemon
+.DS_Store
+app/images/**/*
+!app/images/logo.png
+sumatra/file*.pdf
+sumatra/SumatraPDF-settings.txt
+log.txt
