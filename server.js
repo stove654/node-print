@@ -55,6 +55,8 @@ var printingJob = function () {
   pdfGenerator
     .create(htmlString, pdfOptions)
     .toFile(function(err, res) {
+      console.log(res);
+
       if (err) console.log('PDF generator error:', err);
 
       if (res.filename) {
@@ -67,12 +69,11 @@ var printingJob = function () {
           console.log(response)
         });
       }
-      console.log(res);
     });
 };
 
 
-router.get('/logging')
+router.route('/prints')
   .post(function(req, res) {
     printingJob();
   });
