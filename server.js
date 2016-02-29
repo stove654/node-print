@@ -65,9 +65,7 @@ var printingJob = function (data, callback) {
           '-print-to', 'cashier',
           '-silent', res.filename,
           '-print-settings', 'noscale'
-        ], function (response) {
-          console.log(response)
-        });
+        ]);
       }
     });
 };
