@@ -62,7 +62,7 @@ var printingJob = function () {
       if (res.filename) {
         callback.call(null);
         spawn(sumatraPath, [
-          '-print-to', 'PRP-950',
+          '-print-to', 'cashier',
           '-silent', res.filename,
           '-print-settings', 'noscale'
         ], function (response) {
