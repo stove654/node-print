@@ -75,7 +75,9 @@ var printingJob = function (data, callback) {
 
 router.route('/prints')
   .post(function(req, res) {
-    printingJob(req, res);
+    printingJob(req.body, function() {
+      res.json({ error: false, message: 'Printed successfully!' });
+    });
   });
 
 app.use('/api', router);
