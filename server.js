@@ -50,7 +50,7 @@ router.get('/', function(req, res) {
   res.json({ message: '#HotTab printing server started...' });
 });
 
-var printingJob = function () {
+var printingJob = function (data, callback) {
   var htmlString = '<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Document</title></head><body><h1>hello</h1></body></html>'
   pdfGenerator
     .create(htmlString, pdfOptions)
@@ -75,7 +75,7 @@ var printingJob = function () {
 
 router.route('/prints')
   .post(function(req, res) {
-    printingJob();
+    printingJob(req, res);
   });
 
 app.use('/api', router);
