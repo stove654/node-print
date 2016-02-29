@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
 });
 
 var printingJob = function (data, callback) {
-  var htmlString = '<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Document</title></head><body><h1>hello</h1></body></html>'
+  var htmlString = req.body.html
   pdfGenerator
     .create(htmlString, pdfOptions)
     .toFile(function(err, res) {
