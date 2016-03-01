@@ -7,10 +7,11 @@ var fs = require('fs');
 var request = require('request');
 var pdfGenerator = require('html-pdf');
 var http = require('http');
-var pdfPath = path.resolve(__dirname, 'sumatra/file.pdf');
 var exec = require('child_process').exec;
 var sumatraPath = path.resolve(__dirname, 'sumatra/SumatraPDF.exe');
 var sys = require('sys')
+var pathId = 1;
+var pdfPath = path.resolve(__dirname, 'sumatra/file' + pathId + '.pdf');
 
 var pdfOptions = {
   filename: pdfPath,
@@ -71,6 +72,8 @@ var printingJob = function (data, callback) {
               '-silent', res.filename,
               '-print-settings', 'noscale'
             ]);
+            pathId++;
+            if (pathId > 20) { pathId = 1 }
           }
         }
       }
