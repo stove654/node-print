@@ -10,6 +10,7 @@ var http = require('http');
 var pdfPath = path.resolve(__dirname, 'sumatra/file.pdf');
 var exec = require('child_process').exec;
 var sumatraPath = path.resolve(__dirname, 'sumatra/SumatraPDF.exe');
+var sys = require('sys')
 
 var pdfOptions = {
   filename: pdfPath,
@@ -51,7 +52,9 @@ router.get('/', function(req, res) {
 });
 
 var printingJob = function (data, callback) {
-  var htmlString = data.html
+  var htmlString = data.html;
+  data.copies = data.copies || 1;
+  data.printers = data.printers || [];
   pdfGenerator
     .create(htmlString, pdfOptions)
     .toFile(function(err, res) {
@@ -60,22 +63,50 @@ var printingJob = function (data, callback) {
       if (err) console.log('PDF generator error:', err);
 
       if (res.filename) {
-        callback.call(null);
-        spawn(sumatraPath, [
-          '-print-to', 'cashier',
-          '-silent', res.filename,
-          '-print-settings', 'noscale'
-        ]);
+        callback.json({ error: false, message: 'Print Done' });
+        for (var i = 0; i < data.printers.length; i++) {
+          if (data.printers[i].name) {
+            spawn(sumatraPath, [
+              '-print-to', data.printers[i].name,
+              '-silent', res.filename,
+              '-print-settings', 'noscale'
+            ]);
+          }
+        }
       }
     });
+
+  /*exec("ping -c 3 192.168.7.141", function (error, stdout, stderr) {
+    if (error) callback.json({ error: false, message: 'Please check printer or network printer' });
+    if (stdout) {
+
+    }
+  });*/
+
 };
 
 
 router.route('/prints')
+
+  .get(function(req, res) {
+    var wmic = exec(
+      'wmic Path Win32_Printer Get DeviceId',
+      function(error, stdout, stderr) {
+        var listPrinters = [];
+        stdout.split('\n').splice(1).forEach(function(printerName) {
+          printerName = printerName.trim();
+
+          if (printerName) {
+            listPrinters.push({name: printerName});
+          }
+        });
+        res.json(listPrinters);
+      }
+    );
+  })
+
   .post(function(req, res) {
-    printingJob(req.body, function() {
-      res.json({ error: false, message: 'Printed successfully!' });
-    });
+    printingJob(req.body, res);
   });
 
 app.use('/api', router);
