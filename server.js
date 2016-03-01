@@ -10,11 +10,7 @@ var http = require('http');
 var exec = require('child_process').exec;
 var sumatraPath = path.resolve(__dirname, 'sumatra/SumatraPDF.exe');
 var sys = require('sys')
-var pathId = 1;
-var pdfPath = path.resolve(__dirname, 'sumatra/file' + pathId + '.pdf');
-
 var pdfOptions = {
-  filename: pdfPath,
   width: '7.5cm',
   height: '255cm',
   border: {
@@ -56,6 +52,8 @@ var printingJob = function (data, callback) {
   var htmlString = data.html;
   data.copies = data.copies || 1;
   data.printers = data.printers || [];
+  data.timestamp = data.timestamp || 1;
+  pdfOptions.filename = path.resolve(__dirname, 'sumatra/file' + data.timestamp + '.pdf');
   pdfGenerator
     .create(htmlString, pdfOptions)
     .toFile(function(err, res) {
@@ -72,8 +70,6 @@ var printingJob = function (data, callback) {
               '-silent', res.filename,
               '-print-settings', 'noscale'
             ]);
-            pathId++;
-            if (pathId > 20) { pathId = 1 }
           }
         }
       }
