@@ -7,6 +7,7 @@ var pdfGenerator = require('html-pdf');
 var exec = require('child_process').exec;
 var sumatraPath = path.resolve(__dirname, 'sumatra/SumatraPDF.exe');
 var pdfOptions = {
+  filename: path.resolve(__dirname, 'sumatra/file.pdf'),
   width: '7.5cm',
   height: '255cm',
   border: {
@@ -47,7 +48,7 @@ var printingJob = function (data, callback) {
   data.copies = data.copies || 1;
   data.printers = data.printers || [];
   data.timestamp = data.timestamp || 1;
-  pdfOptions.filename = path.resolve(__dirname, 'sumatra/file' + data.timestamp + '.pdf');
+  //pdfOptions.filename = path.resolve(__dirname, 'sumatra/file' + data.timestamp + '.pdf');
   pdfGenerator
     .create(htmlString, pdfOptions)
     .toFile(function(err, res) {
