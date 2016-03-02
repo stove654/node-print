@@ -3,13 +3,9 @@ var express  = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   spawn = require('child_process').spawn;
-var fs = require('fs');
-var request = require('request');
 var pdfGenerator = require('html-pdf');
-var http = require('http');
 var exec = require('child_process').exec;
 var sumatraPath = path.resolve(__dirname, 'sumatra/SumatraPDF.exe');
-var sys = require('sys')
 var pdfOptions = {
   width: '7.5cm',
   height: '255cm',
@@ -36,10 +32,6 @@ app.use(bodyParser.json({limit: '50mb',
 
 app.use('/static', express.static('app/images'));
 
-function handleError(res, err) {
-  return res.status(422).json(err);
-}
-
 var port = process.env.PORT || 8080;
 
 var router = express.Router();
@@ -49,7 +41,8 @@ router.get('/', function(req, res) {
 });
 
 var printingJob = function (data, callback) {
-  var htmlString = data.html;
+  //var htmlString = data.html;
+  var htmlString = "<h1>hello</h1>"
   data.copies = data.copies || 1;
   data.printers = data.printers || [];
   data.timestamp = data.timestamp || 1;
