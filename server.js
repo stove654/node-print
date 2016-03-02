@@ -44,7 +44,7 @@ router.get('/', function(req, res) {
 var printingJob = function (data, callback) {
   //var htmlString = data.html;
   console.log('pdfOptions', pdfOptions)
-  var htmlString = "<h1>hello</h1>"
+  var htmlString = '<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Document</title>style</head><body><h1>hello</h1></body></html>'
   data.copies = data.copies || 1;
   data.printers = data.printers || [];
   data.timestamp = data.timestamp || 1;
