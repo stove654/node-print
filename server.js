@@ -42,6 +42,7 @@ router.get('/', function(req, res) {
 
 var printingJob = function (data, callback) {
   //var htmlString = data.html;
+  console.log('pdfOptions', pdfOptions)
   var htmlString = "<h1>hello</h1>"
   data.copies = data.copies || 1;
   data.printers = data.printers || [];
