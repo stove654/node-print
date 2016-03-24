@@ -58,9 +58,9 @@ var printingJob = function (data, callback) {
       if (res.filename) {
         callback.json({ error: false, message: 'Print Done' });
         for (var i = 0; i < data.printers.length; i++) {
-          if (data.printers[i].name) {
+          if (data.printers[i].printerName) {
             spawn(sumatraPath, [
-              '-print-to', data.printers[i].name,
+              '-print-to', data.printers[i].printerName,
               '-silent', res.filename,
               '-print-settings', 'noscale'
             ]);
