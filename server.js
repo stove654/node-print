@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true,
 app.use(bodyParser.json({limit: '50mb',
   parameterLimit: 100000000}));
 
-app.use('/static', express.static('app/images'));
+app.use('/static', express.static('doc'));
 
 var port = process.env.PORT || 8080;
 

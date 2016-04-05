@@ -1,0 +1,12 @@
+{
+  "name": "HotTab Print Server",
+  "version": "2.0.0",
+  "description": "API for HotTab Print Server",
+  "title": "Hottab Print Server",
+  "url" : "https://localhost:8080/api",
+  "sampleUrl": "https://localhost:8080/api",
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}
