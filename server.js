@@ -24,13 +24,18 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(bodyParser.urlencoded({ extended: true,
+app.use(bodyParser.urlencoded({ 
+  extended: true,
   limit: '50mb',
-  parameterLimit: 100000000}));
-app.use(bodyParser.json({limit: '50mb',
-  parameterLimit: 100000000}));
+  parameterLimit: 100000000 // 100,000,000
+}));
 
-app.use('/static', express.static('doc'));
+app.use(bodyParser.json({
+  limit: '50mb',
+  parameterLimit: 100000000 // 100,000,000
+}));
+
+app.use('/doc', express.static('doc'));
 
 var port = process.env.PORT || 8080;
 
